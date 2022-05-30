@@ -1,5 +1,3 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,9 +7,28 @@ builder.Services.AddDbContext<ListWizardContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnStr"));
     }
     );
-builder.Services.AddDefaultIdentity<User>().AddEntityFrameworkStores<ListWizarddbContext>().AddDefaultUI();
+builder.Services.AddDbContext<ListWizarddbContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnStr"));
+    }
+    );
+builder.Services.AddDefaultIdentity<User>(
+    options =>
+    {
+        options.Lockout.AllowedForNewUsers = true;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+        options.Lockout.MaxFailedAccessAttempts = 3;
+    }
+    
+    ).AddEntityFrameworkStores<ListWizarddbContext>().AddDefaultUI();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<FileService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+});
 
 var app = builder.Build();
 
@@ -27,7 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

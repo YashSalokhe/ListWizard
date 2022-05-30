@@ -1,0 +1,62 @@
+﻿@model ListWizard.Models.Upload
+@{
+    ViewData["Title"] = "FileUpload";
+    //WebGrid grid = new WebGrid(Model); 
+}
+
+<h1>FileUpload</h1>
+
+
+<form enctype="multipart/form-data" method="post" >
+    <dl>
+        <dt>
+            <label asp-for="@Model.File"></label>
+        </dt>
+        <dd>
+            <input asp-for="@Model.File" type="file">
+            <span asp-validation-for="@Model.File"></span>
+        </dd>
+         <div class="container">
+         
+     </div>
+    </dl>
+    <div class="form-group">
+                <input type="submit"  value="Finish" class="btn btn-primary" />
+            </div>
+  @*          <asp:GridView id='gridView1' runat="server">
+
+            </asp:GridView>*@
+    
+</form>
+ <a asp-controller="Wizard" asp-action="CreateNewList">Back to Wizard List</a>
+ @if (Model.csvContents.Count() > 0)
+    {
+        <h1>Missing fields are @Model.MissingField</h1>
+        <h1>Imported fields are @Model.ImportedField</h1>
+        <table >
+            <tbody>
+                @foreach (var cell in Model.csvContents)
+                {
+                    <tr>
+                        <td>
+                            @cell.FirstName
+                        </td>
+                        <td>
+                            @cell.LastName
+                        </td>
+                        <td>
+                            @cell.CompanyName
+                        </td>
+                        <td>
+                            @cell.Title
+                        </td>
+                        <td>
+                            @cell.Email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+  <script src="~/lib/jquery/dist/jquery.js"></script>
+      <script src="~/lib/datatables/js/jquery.dataTables.js"></script>

@@ -7,13 +7,11 @@ namespace ListWizard.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ListWizardContext context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public HomeController(ILogger<HomeController> logger , ListWizardContext context, UserManager<IdentityUser> _userManager)
+
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.context = context;
-            this._userManager = _userManager;
+
         }
 
         public IActionResult Index()

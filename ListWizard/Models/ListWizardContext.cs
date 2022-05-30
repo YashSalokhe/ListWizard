@@ -7,12 +7,15 @@ namespace ListWizard.Models
 {
     public partial class ListWizardContext : DbContext
     {
-
+        public ListWizardContext()
+        {
+        }
 
         public ListWizardContext(DbContextOptions<ListWizardContext> options)
             : base(options)
         {
         }
+
 
         public virtual DbSet<CsvContent> CsvContents { get; set; } = null!;
         public virtual DbSet<WizardList> WizardLists { get; set; } = null!;
@@ -32,36 +35,36 @@ namespace ListWizard.Models
             modelBuilder.Entity<CsvContent>(entity =>
             {
                 entity.HasKey(e => e.CsvId)
-                    .HasName("PK__CsvConte__AA1473CDFFBBE020");
+                    .HasName("PK__CsvConte__AA1473CDC8EF4DB6");
 
                 entity.ToTable("CsvContent");
 
                 entity.Property(e => e.CsvId).HasColumnName("csvId");
 
                 entity.Property(e => e.CompanyName)
-                    .HasMaxLength(30)
+                    .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("companyName");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(30)
+                    .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FirstName)
-                    .HasMaxLength(30)
+                    .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("firstName");
 
                 entity.Property(e => e.LastName)
-                    .HasMaxLength(30)
+                    .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("lastName");
 
                 entity.Property(e => e.ListId).HasColumnName("listId");
 
                 entity.Property(e => e.Title)
-                    .HasMaxLength(30)
+                    .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("title");
 
@@ -69,13 +72,13 @@ namespace ListWizard.Models
                     .WithMany(p => p.CsvContents)
                     .HasForeignKey(d => d.ListId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CsvConten__listI__571DF1D5");
+                    .HasConstraintName("FK__CsvConten__listI__5CD6CB2B");
             });
 
             modelBuilder.Entity<WizardList>(entity =>
             {
                 entity.HasKey(e => e.ListId)
-                    .HasName("PK__WizardLi__7D4CA77BF79BF069");
+                    .HasName("PK__WizardLi__7D4CA77B610BCFAC");
 
                 entity.ToTable("WizardList");
 

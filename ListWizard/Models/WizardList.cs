@@ -15,7 +15,7 @@ namespace ListWizard.Models
         public string AssignedTo { get; set; } = null!;
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public byte IsDeleted { get; set; }
+        public byte? IsDeleted { get; set; }
 
         public virtual ICollection<CsvContent> CsvContents { get; set; }
     }
