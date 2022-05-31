@@ -1,50 +1,83 @@
-﻿<title></title>
-<head>
-    <style type="text/css">
-        body
-        {
-            font-family: Arial;
-            font-size: 10pt;
-        }
-        table
-        {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
-        table th
-        {
-            background-color: #ff7f00;
-            color: #fff;
-            font-weight: bold;
-        }
-        table th, table td
-        {
-            padding: 5px;
-            border: 1px solid #ccc;
-        }
-        table, table table td
-        {
-            border: 0px solid #ccc;
-        }
-        .button {
-    background-color: #0094ff; /* Blue */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+﻿    @model IEnumerable<ListWizard.Models.WizardList>
+
+@{
+    ViewData["Title"] = "Index";
 }
-    </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <asp:FileUpload ID="FileUpload1"  CssClass="button"  runat="server" />
-    <asp:Button ID="btnImport" CssClass="button" runat="server" Text="Import" OnClick="ImportCSV" />
-    <hr />
-    <asp:GridView ID="GridView1" runat="server">
-    </asp:GridView>
-    </form>
-</body>
+
+<h1>Index</h1>
+
+<div id="placeHolder"></div>
+<p>
+    <a @*asp-action="CreateNewListPartial" asp-controller="Wizard" > Create New *@ class="btn btn-success button2" onclick="showInPopup('@Url.Action("CreateNewListPartial","Wizard",null,Context.Request.Scheme)','New List Wizard')" >Create new List</a>
+</p>
+<p>
+    <button type="submit" asp-action="Delete" >Delete</button>
+</p>
+<table class="table" id="gridView">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+             @*   @Html.DisplayNameFor(model => model.ListName)*@ListName
+            </th>
+            <th>
+             @*   @Html.DisplayNameFor(model => model.AssignedTo)*@Assigned to
+            </th>
+            <th>
+             @*   @Html.DisplayNameFor(model => model.CreatedDate)*@Created Date
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.ModifiedDate)*@Modified Date
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <input type="checkbox" asp-route-id = "@item.ListId"/>
+                @*<a asp-action="Edit"  asp-route-id="@item.ListId">Edit</a> *@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+
+            
+        </tr>
+}
+    </tbody>
+</table>
+@*   <script src="~/lib/jquery/dist/jquery.js"></script>
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />  
+  
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />  
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />  
+  
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>  
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>  
+@section Scripts{
+    <script>
+    
+    $(document).ready(function(){
+
+        $('#gridView').DataTable();
+        
+    });
+    
+    </script>
+
+}*@

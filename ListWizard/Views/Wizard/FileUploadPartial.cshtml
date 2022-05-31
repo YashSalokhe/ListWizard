@@ -1,12 +1,20 @@
 ﻿@model ListWizard.Models.Upload
 @{
-    ViewData["Title"] = "FileUpload";
+    ViewData["Title"] = "FileUploadPartial";
     Layout = null;
 }
 
-<h1>FileUpload</h1>
+<div id="fileUpload"></div>
 
-
+   <div class="modal" tabindex="-1" id="form-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
 <form enctype="multipart/form-data" method="post" >
     <dl>
         <dt>
@@ -60,5 +68,8 @@
             </tbody>
         </table>
     }
-  <script src="~/lib/jquery/dist/jquery.js"></script>
-      <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
