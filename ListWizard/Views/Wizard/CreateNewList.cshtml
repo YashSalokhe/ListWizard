@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "CreateNewList";
-    Layout = null;
+    //Layout = null;
 }
 
 <h1>CreateNewList</h1>
@@ -28,16 +28,10 @@
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
-@*            <div class="form-group">
-                <label asp-for="ModifiedDate" class="control-label"></label>
-                <input asp-for="ModifiedDate" class="form-control" />
-                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-            </div>*@
-          <p>
-              <input type="button" onclick="showInPopup('@Url.Action("FileUpload","Wizard",null,Context.Request.Scheme)','Upload')"  value="Next" class="btn btn-primary" />
-          </p>
+
+
             <div class="form-group">
-                <input type="submit" onclick="showInPopup('@Url.Action("FileUpload","Wizard",null,Context.Request.Scheme)','Upload')"  value="Next" class="btn btn-primary"/>
+                <input type="submit"   value="Next" class="btn btn-primary"/>
             </div>
         </form>
     </div>

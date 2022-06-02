@@ -11,26 +11,26 @@
       </div>
       <div class="modal-body">
         
-        <form asp-action="CreateNewListPartial">
+        <form asp-action="CreateNewListPartial" id ="form_data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ListName" class="control-label"></label>
-                <input asp-for="ListName" class="form-control" />
+                <input asp-for="ListName" id="listname" class="form-control" />
                 <span asp-validation-for="ListName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AssignedTo" class="control-label"></label>
-                <input asp-for="AssignedTo" class="form-control" />
+                <input asp-for="AssignedTo" id="assignedto" class="form-control" />
                 <span asp-validation-for="AssignedTo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
+                <input asp-for="CreatedDate" id="createdate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" @*onclick="showInPopup('@Url.Action("FileUploadPartial","Wizard",null,Context.Request.Scheme)','Upload')"*@ class="btn btn-success button2" value="Next" />
+                <input type="button" onclick='submitFormData()'  @*onclick="showInPopup('@Url.Action("FileUploadPartial","Wizard",null,Context.Request.Scheme)','Upload')"*@ class="btn btn-success button2" value="Next" />
             </div>
         </form>
 
@@ -49,4 +49,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+   
+
 }

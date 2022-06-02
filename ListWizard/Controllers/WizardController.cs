@@ -15,7 +15,6 @@ namespace ListWizard.Controllers
         public async Task<IActionResult> Index()
         {
             var contents = await context.WizardLists.Where(l=>l.IsDeleted == 0).ToListAsync();
-          //  var list = JsonConvert.SerializeObject(contents);
             return View(contents);
         }
 
@@ -33,7 +32,6 @@ namespace ListWizard.Controllers
                 return RedirectToAction("FileUpload");
             }
  
-            
             return View(wizardList);
         }
 
@@ -54,23 +52,18 @@ namespace ListWizard.Controllers
             return View(uploadedFile);
         }
 
-
-
-
-        public PartialViewResult CreateNewListPartial()
+        public IActionResult CreateNewListPartial()
         {
             return PartialView();
         }
 
         [HttpPost]
-        public IActionResult CreateNewListPartial(WizardList wizardList)
+        public IActionResult CreateNewListPartial(WizardList wizardList )
         {
-
             if (ModelState.IsValid)
             {
                 HttpContext.Session.SetObject("newListInfo", wizardList);
-                return RedirectToAction("FileUploadPartial");
-               // return Ok();
+                return Ok();
             }
             return View();
         }
@@ -79,6 +72,21 @@ namespace ListWizard.Controllers
         {
             Upload upload = new Upload();
             return PartialView(upload);
+        }
+
+
+        [HttpPost]
+        public IActionResult FileUploadPartial(Upload uploadedFile)
+        {
+            
+            //var ser = uploadedFile.deseriliaze();
+            //var obj = JsonConvert.DeserializeObject<Upload>(uploadedFile);
+            if (ModelState.IsValid)
+            {
+                var result = fileService.FileUploadAsync(uploadedFile).Result;
+                return View(result);
+            }
+            return View(uploadedFile);
         }
     }
 }

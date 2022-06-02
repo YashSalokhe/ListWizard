@@ -7,9 +7,9 @@ namespace ListWizard.Models
 {
     public partial class ListWizardContext : DbContext
     {
-        public ListWizardContext()
-        {
-        }
+        //public ListWizardContext()
+        //{
+        //}
 
         public ListWizardContext(DbContextOptions<ListWizardContext> options)
             : base(options)

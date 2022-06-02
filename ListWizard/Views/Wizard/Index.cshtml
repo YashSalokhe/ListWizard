@@ -7,8 +7,11 @@
 <h1>Index</h1>
 
 <div id="placeHolder"></div>
+@*<p>
+    <a asp-action="CreateNewList" asp-controller="Wizard" class="btn btn-success button2">Create new List</a>
+</p>*@
 <p>
-    <a @*asp-action="CreateNewListPartial" asp-controller="Wizard" > Create New *@ class="btn btn-success button2" onclick="showInPopup('@Url.Action("CreateNewListPartial","Wizard",null,Context.Request.Scheme)','New List Wizard')" >Create new List</a>
+    <a  class="btn btn-success button2" onclick="showInPopup('@Url.Action("CreateNewListPartial","Wizard",null,Context.Request.Scheme)','New List Wizard')" >Create new List</a>
 </p>
 <p>
     <button type="submit" asp-action="Delete" >Delete</button>

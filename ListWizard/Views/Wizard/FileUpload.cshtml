@@ -1,7 +1,7 @@
 ﻿@model ListWizard.Models.Upload
 @{
     ViewData["Title"] = "FileUpload";
-    Layout = null;
+    //Layout = null;
 }
 
 <h1>FileUpload</h1>
@@ -21,15 +21,13 @@
      </div>
     </dl>
     <div class="form-group">
-                <input type="submit" onsubmit="showInPopup('@Url.Action("FileUpload","Wizard",null,Context.Request.Scheme)','Upload')" value="Finish" class="btn btn-primary" />
+                <input type="submit" value="Finish" class="btn btn-primary" />
             </div>
-  @*          <asp:GridView id='gridView1' runat="server">
 
-            </asp:GridView>*@
     
 </form>
 <p>
-    <a @*asp-action="CreateNewList" asp-controller="Wizard"*@  onclick="showInPopup('@Url.Action("CreateNewList","Wizard",null,Context.Request.Scheme)','New List Wizard')" class="btn btn-success button2">Back to list</a>
+    <a asp-action="CreateNewList" asp-controller="Wizard"  class="btn btn-success button2">Back to list</a>
 </p>
  @if (Model.csvContents.Count() > 0)
     {

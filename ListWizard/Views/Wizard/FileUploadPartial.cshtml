@@ -15,13 +15,13 @@
       </div>
       <div class="modal-body">
         
-<form enctype="multipart/form-data" method="post" >
+<form enctype="multipart/form-data" id="uploadpart" method="post" >
     <dl>
         <dt>
             <label asp-for="@Model.File"></label>
         </dt>
         <dd>
-            <input asp-for="@Model.File" type="file">
+            <input asp-for="@Model.File"  id="uploadfile" type="file">
             <span asp-validation-for="@Model.File"></span>
         </dd>
          <div class="container">
@@ -29,11 +29,9 @@
      </div>
     </dl>
     <div class="form-group">
-                <input type="submit" onsubmit="showInPopup('@Url.Action("FileUpload","Wizard",null,Context.Request.Scheme)','Upload')" value="Finish" class="btn btn-primary" />
+                <input type="button" onclick="onUploadSubmit()"  value="Finish" class="btn btn-primary" />
             </div>
-  @*          <asp:GridView id='gridView1' runat="server">
 
-            </asp:GridView>*@
     
 </form>
 <p>
