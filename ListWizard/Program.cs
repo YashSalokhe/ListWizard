@@ -24,6 +24,7 @@ builder.Services.AddDefaultIdentity<User>(
     ).AddEntityFrameworkStores<ListWizarddbContext>().AddDefaultUI();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<FileService>();
+builder.Services.AddScoped<MailService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {

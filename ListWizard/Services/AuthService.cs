@@ -1,4 +1,6 @@
-﻿namespace ListWizard.Services
+﻿using System.Security.Policy;
+
+namespace ListWizard.Services
 {
     public class AuthService
     {
@@ -6,15 +8,16 @@
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor http;
         private readonly ListWizarddbContext dbcontext;
+        private readonly MailService mailService;
 
-
-
-        public AuthService(SignInManager<User> signInManager, UserManager<User> userManager, IHttpContextAccessor http, ListWizarddbContext dbcontext)
+         
+        public AuthService(SignInManager<User> signInManager, UserManager<User> userManager, IHttpContextAccessor http, ListWizarddbContext dbcontext, MailService mailService)
         {
             this._signInManager = signInManager;
             this._userManager = userManager;
             this.http = http;
             this.dbcontext = dbcontext;
+            this.mailService = mailService;
         }
 
         public async Task<IdentityResult> RegisterUserAsync(Register register)
@@ -26,8 +29,7 @@
               PhoneNumber = register.PhoneNumber,
             };
             var result = await _userManager.CreateAsync(registerNewUser, register.Password);
-                
-            
+
             return result;
         }
 
@@ -61,7 +63,18 @@
 
         public async Task<string> ForgotPasswordAsync(string email)
         {
-            return null;
+            var validUser = await _userManager.FindByEmailAsync(email);
+            if (validUser == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(validUser);              
+                mailService.SendMail(email, token);
+                return "ValidUser";
+            }
+            
         }
 
     }

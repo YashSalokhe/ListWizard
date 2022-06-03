@@ -52,31 +52,35 @@ function onUploadSubmit() {
     //console.log(form);
 
     var files = $('#uploadfile')[0].files;
-    console.log(files[0]);
-    //var newObject = {
-    //    'lastModified': files[0].lastModified,
-    //    'lastModifiedDate': files[0].lastModifiedDate,
-    //    'name': files[0].name,
-    //    'size': files[0].size,
-    //    'type': files[0].type
-    //};
-    //console.log(newObject);
+   // console.log(files[0]);
+    //var dat = document.getElementById('#uploadpart');
+    
+    //console.log(dataform);
+    //var uploadedFile = new FormData($('#uploadpart'));
+    ////uploadedFile.append("File", files[0]);
+    ////uploadedFile.append("ImportedField", 1);
+    ////uploadedFile.append("MissingField", 2);
+    ////uploadedFile.append("csvContents", {});
+    //console.log(uploadedFile.serialize());
 
     var data = {
      
-        File: files,
-        ImportedField :1,
-        MissingField : 5,
-        csvContents: {}
+        File: files[0],
+        //ImportedField :1,
+        //MissingField : 5,
+        //csvContents: {}
     }
-  
+    var dataform = new FormData();
+    dataform.set('uploadedFile', files[0], files[0].name);
+    console.log(dataform);
+    console.log(files[0]);
+    console.log(typeof (files[0]));
     $.ajax({
         type: "POST",
         url: "/Wizard/FileUploadPartial",
-        //dataType: "text/csv",
-        contentType: true,
+        contentType: "multipart/form-data; boundary=something",
         processData: false,
-        data: { 'uploadedFile': data }
+        data: { 'uploadedFile': files[0] }
        
         //success: function () {
         //    showInPopup("/Wizard/FileUploadPartial", 'Upload')

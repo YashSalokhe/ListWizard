@@ -34,16 +34,21 @@ namespace ListWizard.Models
             public string PhoneNumber { get; set; } = null!;
         }
 
-        public class ForgotPasswordView
+        public class ForgotPasswordViewModel
         {
-            [EmailAddress]
+            
             [Required]
+            [EmailAddress]
             public string Email { get; set; } = null!;
         }
 
-        public class ResetPasswordView
+        public class ResetPasswordViewModel
         {
-
+            [Required]
+            public string Password { get; set; } = null!;
+            [Required]
+            [Compare(nameof(Password),ErrorMessage ="Password Should Match")]
+            public string ConfirmPassword { get; set; } = null!;
         }
     }
 }

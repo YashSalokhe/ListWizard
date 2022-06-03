@@ -68,21 +68,17 @@ namespace ListWizard.Services
                                 Title = row.Split(',')[3],
                                 Email = row.Split(',')[4],
                                 ListId = createdList.ListId
-
                             });
                         }
                         else
                         {
                             missingFields++;
                         }
-                    }
-                   
+                    }                   
                 }
                 await context.CsvContents.AddRangeAsync(content);
-                   await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
-                var countOfMissingFields = missingFields;
-                var countOfImportedFields = presentFields;
                 Upload newUpload = new Upload()
                 {
                     File = upload.File,

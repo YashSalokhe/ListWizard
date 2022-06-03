@@ -5,10 +5,12 @@ namespace ListWizard.Controllers
     public class AuthController : Controller
     {
         private readonly AuthService _authService;
+        private readonly UserManager<User> _userManager;
 
-        public AuthController(AuthService authService)
+        public AuthController(AuthService authService, UserManager<User> _userManager)
         {
             this._authService = authService;
+            this._userManager = _userManager;
         }
         public ViewResult Index()
         {
@@ -28,7 +30,6 @@ namespace ListWizard.Controllers
             string authResult = await _authService.LoginUserAsync(login);
             if (authResult == "Success")
             {
-
                 return RedirectToAction("CreateNewList","Wizard");
             }
             else
@@ -63,13 +64,27 @@ namespace ListWizard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordView forgotPassword)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPassword)
         {
-            string result= await _authService.ForgotPasswordAsync(forgotPassword.Email);
-            return RedirectToAction("ResetPassword");
+            if (ModelState.IsValid)
+            {
+                var sendEmail = await _authService.ForgotPasswordAsync(forgotPassword.Email);
+                    //var validUser = await _userManager.FindByEmailAsync(forgotPassword.Email);
+                    //var token = await _userManager.GeneratePasswordResetTokenAsync(validUser);
+                    //var passwordresetLink = Url.Action("ResetPassword", "Auth", new { email = forgotPassword.Email, token = token }, Request.Scheme);
+                    return RedirectToAction("ResetPassword");
+
+            }
+            else
+            { return View();}
         }
 
         public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ResetPassword(ResetPasswordViewModel resetPassword)
         {
             return View();
         }

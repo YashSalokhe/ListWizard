@@ -7,16 +7,16 @@ namespace ListWizard.Models
 {
     public partial class ListWizardContext : DbContext
     {
-        //public ListWizardContext()
-        //{
-        //}
+        public ListWizardContext()
+        {
+        }
 
         public ListWizardContext(DbContextOptions<ListWizardContext> options)
             : base(options)
         {
         }
 
-
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; } = null!;
         public virtual DbSet<CsvContent> CsvContents { get; set; } = null!;
         public virtual DbSet<WizardList> WizardLists { get; set; } = null!;
 
@@ -31,6 +31,22 @@ namespace ListWizard.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AspNetUser>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
+            });
 
             modelBuilder.Entity<CsvContent>(entity =>
             {

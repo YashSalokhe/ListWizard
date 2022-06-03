@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace ListWizard.Controllers
 {
     public class WizardController : Controller
     {
+    
         private readonly ListWizardContext context;
         private readonly FileService fileService;
         public WizardController(ListWizardContext context, FileService fileService)
@@ -24,7 +26,7 @@ namespace ListWizard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewList(WizardList wizardList)
+        public IActionResult CreateNewList(WizardList wizardList)
         {
             if (ModelState.IsValid)
             {
@@ -76,15 +78,15 @@ namespace ListWizard.Controllers
 
 
         [HttpPost]
-        public IActionResult FileUploadPartial(Upload uploadedFile)
+        public IActionResult FileUploadPartial(IFormFile uploadedFile)
         {
-            
-            //var ser = uploadedFile.deseriliaze();
-            //var obj = JsonConvert.DeserializeObject<Upload>(uploadedFile);
+
+            //var files = HttpContext.Request.Form.Files.GetFile("uploadedFile");
+
             if (ModelState.IsValid)
             {
-                var result = fileService.FileUploadAsync(uploadedFile).Result;
-                return View(result);
+                //var result = fileService.FileUploadAsync(uploadedFile).Result;
+                //return View(result);
             }
             return View(uploadedFile);
         }

@@ -7,11 +7,14 @@ namespace ListWizard.Models
     {
         public ListWizarddbContext(DbContextOptions<ListWizarddbContext> options):base(options)
         {
-
+                                
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<User>().Ignore(c => c.EmailConfirmed)
+                                  .Ignore(c => c.TwoFactorEnabled);
+           
         }
     }
 }
